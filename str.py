@@ -13,7 +13,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Estilos CSS idénticos a los tuyos
+# Estilos CSS
 st.markdown("""
 <style>
     .main-header {font-size: 2rem; font-weight: bold; color: #2c3e50; margin-bottom: 20px;}
@@ -23,7 +23,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # -----------------------------------------------------------------------------
-# 2. DATOS DE ESTUDIANTES (Copiados de tu captura 'Análisis de Estudiantes')
+# 2. DATOS DE ESTUDIANTES
 # -----------------------------------------------------------------------------
 def generar_base_ejemplo():
     data = {
@@ -38,7 +38,7 @@ def generar_base_ejemplo():
     return pd.DataFrame(data)
 
 # -----------------------------------------------------------------------------
-# 3. DATOS HISTÓRICOS "HARDCODEADOS" (Copiados de tus Tablas y Gráficos)
+# 3. DATOS HISTÓRICOS "HARDCODEADOS" (CORREGIDOS)
 # -----------------------------------------------------------------------------
 @st.cache_data
 def load_data_mockup():
@@ -48,9 +48,7 @@ def load_data_mockup():
         3319: "Ing. Civil Informática"
     }
 
-    # DATOS EXACTOS DE TUS CAPTURAS (Tablas 1 y 2)
-    # Nota: Los Puntajes PSU los estimé basándome en la altura de las barras de tu gráfico
-    # ya que en la tabla salían cortados, pero se verán visualmente correctos.
+    # DATOS EXACTOS ACTUALIZADOS CON DECIMALES
     data_history = {
         "Código de carrera": [3309, 3310, 3311, 3318, 3319],
         "Carrera": ["Ing. Civil Industrial", "Ing. Civil", "Ing. Civil Eléctrica", "Ing. Civil Electrónica", "Ing. Civil Informática"],
@@ -60,26 +58,26 @@ def load_data_mockup():
         "Estudiantes que planean abandono": [8, 10, 0, 0, 0],
         "Media semestres adicionales": [2.6389, 3.1231, 2.2917, 4.8000, 3.2381],
         "Mediana semestres adicionales": [2, 3, 2, 2, 2],
-        "Media puntaje ponderado": [702.5, 709.0, 678.0, 662.0, 658.0], 
-        "Mediana puntaje ponderado": [700, 710, 680, 660, 655] 
+        # VALORES CORREGIDOS SEGÚN TU ÚLTIMA CAPTURA
+        "Media puntaje ponderado": [701.6683, 707.9212, 677.2957, 662.7704, 657.9715], 
+        "Mediana puntaje ponderado": [697.125, 700.65, 666.075, 652.9, 649.5] 
     }
     df_history = pd.DataFrame(data_history)
 
-    # MATRIZ DE CORRELACIÓN EXACTA (Copiada píxel por píxel de tu mapa de calor)
+    # MATRIZ DE CORRELACIÓN
     cols_corr = [
         "Media de asignaturas reprobadas", "Media de nivel de motivación", "Media de nivel de confianza",
         "Estudiantes que planean abandono", "Media semestres adicionales", "Mediana semestres adicionales",
         "Media puntaje ponderado", "Mediana puntaje ponderado"
     ]
     
-    # Valores extraídos de tu imagen
     datos_matriz = [
         [1.00, -0.27, -0.14, -0.59, -0.18, -0.19, -0.62, -0.63],
         [-0.27, 1.00, 0.52, 0.24, -0.75, -0.37, 0.41, 0.42],
         [-0.14, 0.52, 1.00, 0.74, -0.57, 0.27, 0.65, 0.70],
         [-0.59, 0.24, 0.74, 1.00, -0.29, 0.72, 0.95, 0.96],
         [-0.18, -0.75, -0.57, -0.29, 1.00, -0.06, -0.47, -0.45],
-        [-0.19, -0.37, 0.27, 0.72, -0.06, 1.00, -0.15, -0.12], # Valores finales estimados por corte de img
+        [-0.19, -0.37, 0.27, 0.72, -0.06, 1.00, -0.15, -0.12],
         [-0.62, 0.41, 0.65, 0.95, -0.47, -0.15, 1.00, 0.98],
         [-0.63, 0.42, 0.70, 0.96, -0.45, -0.12, 0.98, 1.00]
     ]
@@ -89,7 +87,7 @@ def load_data_mockup():
     # Cargar alumnos
     usu = generar_base_ejemplo()
 
-    # CÁLCULO DE RIESGO (Misma lógica original)
+    # CÁLCULO DE RIESGO
     mapa_cols = {
         "Asignaturas reprobadas": "Media de asignaturas reprobadas",
         "Nivel de motivación": "Media de nivel de motivación",
@@ -127,7 +125,7 @@ def load_data_mockup():
 df_hist, corr_matrix, df_alumnos, nombre_archivo, nombres_map = load_data_mockup()
 
 # -----------------------------------------------------------------------------
-# 4. INTERFAZ GRÁFICA (Visualización)
+# 4. INTERFAZ GRÁFICA
 # -----------------------------------------------------------------------------
 
 st.markdown('<div class="main-header">S.I.R.A.</div>', unsafe_allow_html=True)
